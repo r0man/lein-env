@@ -1,16 +1,16 @@
 (ns leiningen.env
   (:refer-clojure :exclude (list))
-  (:use [clojure.string :only (join)]
-        [clojure.pprint :only (pprint)]
+  (:use [clojure.pprint :only (pprint)]
+        [clojure.string :only (join)]
         [leiningen.help :only (help-for)]
-        leiningen.env.core))
+        [leiningen.env.core :only (read-environments)]))
 
 (defn list
   "List all project environments."
   [project]
   (let [environments (read-environments project)]
     (if (empty? environments)
-      (println "No environments defined.")
+      (println "No environments found.")
       (println (format "Environments: %s." (join ", " (map name (keys environments))))))))
 
 (defn show
