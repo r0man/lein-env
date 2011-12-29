@@ -14,15 +14,20 @@
   "Returns the symbol under which the environments are stored."
   [project] (symbol (str (:name project) "-environments" )))
 
+(defn resolve-environments
+  "Resolve the project environments in the 'user or the given namespace."
+  [project & [ns]]
+  (if-let [environments (ns-resolve (or ns 'user) (project-symbol project))]
+    @environments))
+
 (defn read-environments
   "Read the environments for project."
-  [project & [path]]
+  [project & [path ns]]
   (let [file (file (or path lein-init-path))]
     (when (.exists file)
       (in-ns 'user)
       (load-file (str file))
-      (if-let [environments (ns-resolve 'user (project-symbol project))]
-        @environments))))
+      (resolve-environments project ns))))
 
 (defn load-environments
   "Load the environments for project."
