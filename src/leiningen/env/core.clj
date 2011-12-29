@@ -25,13 +25,14 @@
   [project & [path ns]]
   (let [file (file (or path lein-init-path))]
     (when (.exists file)
-      (in-ns 'user)
+      (in-ns (or ns 'user))
       (load-file (str file))
       (resolve-environments project ns))))
 
 (defn load-environments
   "Load the environments for project."
-  [project & [path]] (swap! *environments* merge (read-environments project path)))
+  [project & [path ns]]
+  (swap! *environments* merge (read-environments project path ns)))
 
 (defmacro with-environment
   "Evaluate body with *current* bound to the environment name."
