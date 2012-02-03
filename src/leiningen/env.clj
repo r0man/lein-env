@@ -1,32 +1,29 @@
 (ns leiningen.env
   (:refer-clojure :exclude (list))
-  (:use [clojure.pprint :only (pprint)]
-        [clojure.string :only (join)]
-        [leiningen.help :only (help-for)]
-        [leiningen.env.core :only (read-environments)]))
+  (:use [leiningen.help :only (help-for)]
+        leiningen.env.tasks))
+
+(defn current
+  "Print the current project environment."
+  [project] (print-current-environment project))
 
 (defn list
   "List all project environments."
-  [project]
-  (let [environments (read-environments project)]
-    (if (empty? environments)
-      (println "No environments found.")
-      (println (format "Environments: %s." (join ", " (map name (keys environments))))))))
+  [project] (list-environments project))
 
 (defn show
   "Show the project environment by name."
-  [project & [name]]
-  (if-let [environment (get (read-environments project) (keyword name))]
-    (do (pprint environment) (flush))
-    (println (format "Environment '%s' not found" (str name)))))
+  [project & [name]] (show-environment project name))
 
 (defn env
   "Leiningen project environments."
-  {:help-arglists '([list show])
-   :subtasks [#'list #'show]}
+  {:help-arglists '([current list show])
+   :subtasks [#'current #'list #'show]}
   ([project]
-     (println (help-for "env")))
+     (env project "current"))
   ([project subtask & args]
-     (case subtask
-       "list" (apply list project args)
-       "show" (apply show project args))))
+     (cond
+      (= "help" subtask) (println (help-for "env"))
+      (= "list" subtask) (apply list project args)
+      (= "show" subtask) (apply show project args)
+      :else (current project))))
