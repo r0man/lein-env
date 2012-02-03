@@ -7,7 +7,7 @@
 (deftest test-variable-name
   (is (nil? (variable-name nil)))
   (is (nil? (variable-name {})))
-  (is (= "LEIN_ENV" (variable-name project))))
+  (is (= "LEIN_ENV_ENV" (variable-name project))))
 
 (deftest test-project-env
   (is (= :development (project-env nil)))

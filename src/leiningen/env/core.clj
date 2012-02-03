@@ -19,7 +19,7 @@
   "Returns the environment variable name of the project."
   [project]
   (if-let [name (:name project)]
-    (-> name (replace "-" "_") upper-case)))
+    (-> name (replace "-" "_") upper-case (str "_ENV"))))
 
 (defn project-env
   "Returns the project's environment as a keyword."
