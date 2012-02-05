@@ -1,1 +1,3 @@
 language: clojure
+after_install:
+  - curl https://github.com/downloads/technomancy/leiningen/leiningen-1.6.2-standalone.jar > lib/leiningen-1.6.2.jar
