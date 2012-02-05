@@ -35,7 +35,7 @@
         name (last (split (str (:name project)) #"/"))
         environments (ns-resolve ns (symbol name))]
     (if environments
-      (do (debug (format "Project environments #'%s/%s successfully loaded." ns (:name project)))
+      (do (debug (format "Project environments #'%s/%s successfully loaded." ns name))
           @environments))))
 
 (defn read-environments

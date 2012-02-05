@@ -6,6 +6,7 @@
 (defn list-environments
   "List all project environments."
   [project]
+  (set-environments! project)
   (let [environments @*environments*]
     (if (empty? environments)
       (println "No environments found.")
@@ -13,11 +14,14 @@
 
 (defn print-current-environment
   "Print the current project environment."
-  [project] (println (str "Current environment: " (name *current*))))
+  [project]
+  (set-environments! project)
+  (println (str "Current environment: " (name *current*))))
 
 (defn show-environment
   "Show the project environment by name."
   [project & [name]]
+  (set-environments! project)
   (if-let [environment (get @*environments* (keyword name))]
     (do (pprint environment) (flush))
     (println (format "Environment '%s' not found" (str name)))))
