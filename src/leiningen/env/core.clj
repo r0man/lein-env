@@ -1,7 +1,7 @@
 (ns leiningen.env.core
   (:refer-clojure :exclude (replace))
   (:use [clojure.java.io :only (file)]
-        [clojure.string :only (upper-case replace)]
+        [clojure.string :only (upper-case replace split)]
         clojure.tools.logging))
 
 (def ^{:dynamic true} *default* :development)
@@ -32,7 +32,8 @@
   "Resolve the project environments in the 'user or the given namespace."
   [project & [ns]]
   (let [ns (or ns 'user)
-        environments (ns-resolve ns (symbol (:name project)))]
+        name (last (split (str (:name project)) #"/"))
+        environments (ns-resolve ns (symbol name))]
     (if environments
       (do (debug (format "Project environments #'%s/%s successfully loaded." ns (:name project)))
           @environments))))
