@@ -11,7 +11,6 @@
     leiningen.retest/retest
     leiningen.run/run
     leiningen.swank/swank
-    leiningen.test!/test!
     leiningen.test/test
     leiningen.test/trampoline])
 
