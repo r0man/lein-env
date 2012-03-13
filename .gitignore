@@ -7,3 +7,4 @@
 /checkouts
 /.lein-deps-sum
 /logs/debug.log
+/target/pom.xml

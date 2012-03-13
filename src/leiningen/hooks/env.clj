@@ -1,10 +1,10 @@
 (ns leiningen.hooks.env
   (:require [robert.hooke :as hooke])
   (:use [clojure.string :only (split)]
-        [leiningen.env.core :only (wrap-task)]
-        clojure.tools.logging))
+        [clojure.tools.logging :only (warn)]
+        [leiningen.env.core :only (wrap-task)]))
 
-(def ^{:dynamic true} *hooks*
+(def tasks
   '[leiningen.env/env
     leiningen.jack-in/jack-in
     leiningen.repl/repl
@@ -23,4 +23,8 @@
       (catch Exception e
         (warn (format "Can't hook lein-env into %s: %s." task (.getMessage e)))))))
 
-(doall (map add-hook *hooks*))
+(defn activate
+  "Activate the lein-env hooks."
+  []
+  (prn "ACTIVAT")
+  (doall (map add-hook tasks)))
