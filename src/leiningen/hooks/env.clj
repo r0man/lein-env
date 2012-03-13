@@ -25,6 +25,4 @@
 
 (defn activate
   "Activate the lein-env hooks."
-  []
-  (prn "ACTIVAT")
-  (doall (map add-hook tasks)))
+  [] (doall (map add-hook tasks)))
