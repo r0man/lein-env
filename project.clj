@@ -1,4 +1,4 @@
-(defproject lein-env/lein-env "0.0.3-SNAPSHOT"
+(defproject lein-env/lein-env "0.0.4-SNAPSHOT"
   :description "Leiningen project environments."
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [org.clojure/tools.logging "0.2.3"]
